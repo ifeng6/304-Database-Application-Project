@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Link to the external CSS stylesheet. Uncomment if you wish to customize or add styling. -->
+    <link rel="stylesheet" href="styles.css">
+
+    <title>Database Application</title>
+</head>
+<body>
+    <!-- ===================================================================================== -->
+    <!-- Display the current status of the database connection. 
+         !!HERE TO HELP U DEBUGGING, NOT REQUIRED IN YOUR OWN PROJECT!!
+         -->
+    <h1>Database Connection Status: 
+        <!-- An in-line placeholder to display connection status. -->
+        <span id="dbStatus"> </span>
+        <!-- A loading GIF, will be hided once get the status. -->
+        <img id="loadingGif" class="loading-gif" src="loading_100px.gif" alt="Loading...">
+    </h1>
+
+    <br><hr><br> <!-- ========================================================================= -->
+    
+    <!-- ===================================================================================== -->
+    <!-- Select one of the table to display. -->
+    <div class="dropdown">
+        <label for= "tableSelector">Choose a table to display:</label>
+        <select id= "tableSelector" onchange="showTable(this.value)">
+            <option value="users">Users</option>
+            <option value="media">Media</option>
+            <option value="reviews">Reviews</option>
+            <option value="discussion_board">Discussion Board</option>
+            <option value="board_status">Board Status</option>
+            <option value="popularity">Popularity</option>
+            <option value="post">Post</option>
+            <option value="community">Communities</option>
+            <option value="crew_member">Crew Member</option>
+            <option value="studio">Studio</option>
+            <option value="show">Show</option>
+            <option value="movie">Movie</option>
+            <option value="reliability">Reliability</option>
+            <option value="has_episode">Has Episode</option>
+            <option value="member_of">Member Of</option>
+            <option value="contain">Contain</option>
+            <option value="makes_post">Makes Post</option>
+            <option value="has_favourite">Has Favourite</option>
+            <option value="worked_on">Worked On</option>
+            <option value="produced">Produced</option>
+        </select>
+    </div> <br>
+
+    <!-- Show 'user table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+    <table id="users" border="1" class = "show">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Username</th>
+                <th>Email</th>
+                <th>Date Joined</th>
+                <th>Age</th>
+                <th>Gender</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <!-- Show 'media table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="media" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Media ID</th>
+                    <th>Date Released</th>
+                    <th>Genre</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> 
+
+    <!-- Show 'review table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+    <table id="reviews" border="1" class = "hide">
+        <thead>
+            <tr>
+                <!--Table head, need to be adjusted accordingly to align with your own.-->
+                <th>Username</th>
+                <th>Media ID</th>
+                <th>Date Created</th>
+                <th>Rating</th>
+                <th>Title</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <!-- Show 'discussion board table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="discussion_board" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Title</th>
+                    <th>Topic</th>
+                    <th>Date of Creation</th>
+                    <th>Days Inactive</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    <!-- Show 'Board Status table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="board_status" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Days Inactive</th>
+                    <th>Board Status</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    <!-- Show 'Popularity table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="popularity" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Number of Upvotes</th>
+                    <th>Number of Replies</th>
+                    <th>Popularity</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    <!-- Show 'Post table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="post" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Post ID</th>
+                    <th>Number of Upvotes</th>
+                    <th>Number of Replies</th>
+                    <th>Title</th>
+                    <th>Content</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    <!-- Show 'Community table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="community" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Name</th>
+                    <th>Admin</th>
+                    <th>Description</th>
+                    <th>Number of Users</th>
+                    <th>Date Created</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    <!-- Show 'Crew Member table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="crew_member" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Crew Member ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Studio table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="studio" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Name</th>
+                    <th>Headquarters</th>
+                    <th>Number of Employees</th>
+                    <th>Date Founded</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Show table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="show" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Media ID</th>
+                    <th>Number of Episodes</th>
+                    <th>Platforms</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Movie table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="movie" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Media ID</th>
+                    <th>Box Office Gross</th>
+                    <th>Runtime</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Reliability table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="reliability" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Average Rating</th>
+                    <th>Number of Reviews</th>
+                    <th>Reliability</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Has Episode table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="has_episode" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Title</th>
+                    <th>Media ID</th>
+                    <th>Description</th>
+                    <th>Length</th>
+                    <th>Season</th>
+                    <th>Episode Number</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Member Of table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="member_of" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Username</th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Contain table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="contain" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Title</th>
+                    <th>Post ID</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Makes Post table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="makes_post" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Date Posted</th>
+                    <th>Username</th>
+                    <th>Post ID</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Has Favourite table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="has_favourite" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Username</th>
+                    <th>Crew Member ID</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Worked On table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="worked_on" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Crew Member ID</th>
+                    <th>Media ID</th>
+                    <th>Role</th>
+                    <th>Compensation</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        
+    <!-- Show 'Produced table'. 
+        Data will be fetched and inserted here dynamically using JavaScript. -->
+        <table id="produced" border="1" class = "hide">
+            <thead>
+                <tr>
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                    <th>Name</th>
+                    <th>Media ID</th>
+                    <th>Budget</th>
+                    <th>Time Spent</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>   
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2>Reset</h2>
+    <p>Press on the reset button to reset all tables. If this is the first time you're running this page, you MUST use reset to initialize the tables</p>
+    <button id="reset"> Reset </button> <br>
+    <!-- A placeholder to display messages related to the reset operation. -->
+    <div id="resetResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <h2>Demo Queries</h2>
+    <div class="dropdown">
+        <label for= "sectionSelector">Select the query to execute:</label>
+        <select id= "sectionSelector" onchange="showSection(this.value)">
+            <option value="insertion">Insertion</option>
+            <option value="deletion">Deletion</option>
+            <option value="update">Update</option>
+            <option value="selection">Selection</option>
+            <option value="projection">Projection</option>
+            <option value="join">Join</option>
+            <option value="groupby">Group By</option>
+            <option value="having">Having</option>
+            <option value="nested">Nested</option>
+            <option value="division">Division</option>
+        </select>
+    </div>
+
+    <br><hr> <!-- ========================================================================= -->
+
+    <!-- INSERTION -->
+    <!-- insert username, mID, rating, title, and comments into Reviews -->
+    <section id="insertion" class="showSection">
+        <h2>Insert into Review Table</h2>
+        <form id="insertionForm">
+            Username: <input type="text" id="insertUsername" placeholder="Enter Username" maxlength="20" required> <br>
+            mID: <input type="number" id="insertmID" placeholder="Enter mID" maxlength="20" required> <br>
+            Rating: <input type="number" id="insertRating" placeholder="Min 0, Max 5" min="0", max="5" required> <br>
+            Title: <input type="text" id="insertTitle" placeholder="Enter Review Title" maxlength="40" required> <br>
+            Comments: <input type="text" id="insertComments" placeholder="Enter Comments" maxlength="4000" required> <br><br>
+            <button type="submit"> Insert </button> <br>
+        </form>
+        <div id="insertionResultMessage"></div>
+    </section>
+
+    <!-- DELETION -->
+    <!-- deletion of community -> cascade with MemberOf relation -->
+    <section id="deletion" class="hide">
+        <h2>Delete a Community</h2>
+        <form id="deletionForm">
+            Community Name: <input type="text" id="deleteCommunityName" placeholder="Enter Community Name" maxlength="40" required> <br> <br>
+
+            <button type="submit"> Delete </button> <br>
+        </form>
+        <div id="deletionResultMessage"></div>
+    </section>
+
+    <!-- UPDATE -->
+    <!-- update Users: gender, age, email (unique) -->
+    <section id="update" class="hide">
+        <h2>Update a User</h2>
+        <form id="updateForm">
+            Username: <input type="text" id="updateUsername" placeholder="Enter username of user you would like to update" maxlength="20"> <br>
+            Gender: <input type="text" id="updateGender" placeholder="Enter updated gender" maxlength="20"> <br>
+            Age: <input type="number" id="updateAge" placeholder="Enter updated age" min="0"> <br>
+            Email: <input type="text" id="updateEmail" placeholder="Enter updated email" maxlength="320"> <br> <br>
+
+            <button type="submit"> Update </button> <br>
+        </form>
+        <div id="updateResultMessage"></div>
+    </section>
+
+    <!-- JOIN -->
+    <!-- join Reviews and Media and return list of reviews for a given title -->
+    <section id="join" class="hide">
+        <h2>(Join) Return all reviews for a media title</h2>
+        <table id="joinTable" border="1" class="show">
+            <thead>
+                <tr>
+                    <th>User</th>
+                    <th>Rating</th>
+                    <th>Review Title</th>
+                    <th>Review Comments</th>
+                    <th>Review Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> <br>
+        <form id="joinForm">
+            Media Title: <input type="text" id="joinTitle" placeholder="Media title to search for" maxlength="40"> <br> <br>
+
+            <button type="submit"> Join </button> <br>
+        </form>
+        <div id="joinResultMessage"></div>
+    </section>
+
+    <!-- GROUP BY -->
+    <!-- aggregation group by -> number of reviews per user -->
+    <section id="groupby" class="hide">
+        <h2>(Group By) Return count of reviews grouped by user(name)</h2>
+        <table id="groupbyTable" border="1" class="show">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Number of Reviews</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> <br>
+        <form id="groupbyForm">
+            <button type="click"> Get </button> <br>
+        </form>
+        <div id="groupbyResultMessage"></div>
+    </section>
+
+    <!-- HAVING -->
+    <!-- aggregation having -> crew members with at least two favourites -->
+    <section id="having" class="hide">
+        <h2>(Having) Crew Members with at least two users who favourited them</h2>
+        <table id="havingTable" border="1" class="show">
+            <thead>
+                <tr>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Count</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> <br>
+        <form id="havingForm">
+            <button type="click"> Get </button> <br>
+        </form>
+        <div id="havingResultMessage"></div>
+    </section>
+
+    <!-- NESTED -->
+    <!-- nested group by -> highest average rated media with at least 2 reviews -->
+    <section id="nested" class="hide">
+        <h2>(Nested) Media with highest average rating with at least 2 reviews</h2>
+        <table id="nestedTable" border="1" class="show">
+            <thead>
+                <tr>
+                    <th>Media ID</th>
+                    <th>Media Title</th>
+                    <th>Average Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> <br>
+        <form id="nestedForm">
+            <button type="click"> Get </button> <br>
+        </form>
+        <div id="nestedResultMessage"></div>
+    </section>
+
+    <!-- DIVISION -->
+    <!-- division -> get all users who reviewed all media of a genre given by user -->
+    <section id="division" class="hide">
+        <h2>(Division) Get all users who reviewed all Media of a given genre</h2>
+        <table id="divisionTable" border="1" class="show">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> <br>
+        <form id="divisionForm">
+            Genre: <input type="text" id="divisionGenre" placeholder="Enter media genre" maxlength="200"> <br> <br>
+
+            <button type="click"> Submit </button> <br>
+        </form>
+        <div id="divisionResultMessage"></div>
+    </section>
+
+    <!-- SELECTION -->
+    <!-- selection on media: mID, title, genre, date released -->
+    <section id="selection" class="hide">
+        <h2>(Selection) Media: mID, title, genre, date released</h2>
+        <table id="selectionTable" border="1" class="show">
+            <thead>
+                <tr>
+                    <th>Media ID</th>
+                    <th>Date Released</th>
+                    <th>Genre</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table> <br>
+        <form id="selectionForm">
+            Query: <input type="text" id="selectionText" placeholder="Query such as mID=1 OR genre='Romance'" maxlength="200"> <br> <br>
+
+            <button type="submit"> Submit </button> <br>
+        </form>
+        <div id="selectionResultMessage"></div>
+    </section>
+
+    <!-- PROJECTION  -->
+    <!-- Projection on user: username, email, age, gender, date joined -->
+    <section id="projection" class="hide">
+        <h2>View User attributes</h2>
+
+        <table id="projectionTable" border="1" class="show">
+            <thead>
+                <tr>
+                    <!-- <th>Username</th>
+                    <th>Email</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Date Joined</th> -->
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table><br>
+        
+        <form id="projectionForm">
+        <div>
+            <input type="checkbox" id="projectUsername" name="username">
+            <label for="username">Username</label>
+        </div>
+        <div>
+            <input type="checkbox" id="projectEmail" name="email">
+            <label for="email">Email</label>
+        </div>
+        <div>
+            <input type="checkbox" id="projectAge" name="age">
+            <label for="age">Age</label>
+        </div>
+        <div>
+            <input type="checkbox" id="projectGender" name="gender">
+            <label for="gender">Gender</label>
+        </div>
+        <div>
+            <input type="checkbox" id="projectDateJoined" name="date joined">
+            <label for="date joined"> Date Joined</label>
+        </div>
+            <button type="submit"> Submit </button> <br>
+        </form>
+        <div id="projectionResultMessage"></div>
+    </section>
+
+    <!-- ===================================================================================== -->
+
+    
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="scripts.js"></script>
+</body>
+</html>
